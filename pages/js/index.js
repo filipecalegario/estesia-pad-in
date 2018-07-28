@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    setTimeout(function(){
+        // This hides the address bar:
+        window.scrollTo(0, 1);
+    }, 0);
     var client;
     $(function () {
         let isMobile = false; //initiate as false
@@ -17,18 +21,6 @@ $(document).ready(function () {
                 $('body').html('client failed starting : ' + err)
                 throw err
             }
-
-            // $('#send').submit(function (event) {
-            //     event.preventDefault()
-            //     var address = $('#address').val()
-            //         , args = $('#args').val()
-            //     if (args.length)
-            //         args = args.split(' ').map(function (arg) { return JSON.parse(arg) })
-            //     else args = []
-            //     client.send(address, args)
-            // })
-
-            // We want to receive all the messages, so we subscribe to '/'
             client.send('/sys/subscribe', ['/'])
         })
 
