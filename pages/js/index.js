@@ -1,4 +1,4 @@
-$(document).ready(function () {  //joao esteve aqui
+$(document).ready(function () {
     setTimeout(function () {
         // This hides the address bar:
         window.scrollTo(0, 1);
