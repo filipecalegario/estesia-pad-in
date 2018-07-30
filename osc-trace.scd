@@ -11,5 +11,9 @@ b = NetAddr.new("localhost", 9000);
 // Subscribing to receive all messages
 b.sendMsg("/sys/subscribe", 9002, "/");
 
+b.sendMsg("/sys/unsubscribe", 9002, "/");
+
 // Now sending stuff
 b.sendMsg("/hello", "there");
+
+b.sendMsg("/button", 1);
