@@ -28,7 +28,13 @@ $(document).ready(function () {
         client.on('message', function (address, args) {
             console.log(address + " " + args);
             if (address == "/button") {
-                //$(`#b${args[0]}`).trigger("mousedown");
+                if (args[1] == 1) {
+                    $(`#b${args[0]}`).css("transform", "scale(1.05)");
+                    $(`#b${args[0]}`).css("z-index", 3000);
+                } else if(args[1] == 0){
+                    $(`#b${args[0]}`).css("transform", "scale(1)");
+                    $(`#b${args[0]}`).css("z-index", 0);
+                }
                 //$("#b1").mousedown();
                 //$(`#b${args[0]}`).click();
             }
@@ -46,28 +52,38 @@ $(document).ready(function () {
             console.log('server is full!')
         })
 
-        $('.box').on('touchstart', function () {
-            let address = "/button";
-            let args = [$(this).data('code')];
-            //console.log(args[0]);
-            client.send(address, args);
-            $(this).css("z-index", 3000);
-        });
-
         if (!isMobile) {
-            $('.box').on('mousedown touchstart', function () {
-                let address = "/button";
-                let args = [$(this).data('code')];
-                //console.log(args[0]);
-                client.send(address, args);
-                $(this).css("z-index", 3000);
+            $('.box').on('mousedown', function () {
+                buttonOn(client, this);
             });
-        }
-
-        $('.box').on('mouseup touchend', function () {
-            $(this).css("z-index", 0);
+            $('.box').on('mouseup', function () {
+                buttonOff(client, this);
+            });
+        } 
+        
+        $('.box').on('touchstart', function () {
+            buttonOn(client, this);
+        });
+        $('.box').on('touchend', function () {
+            buttonOff(client, this);
         });
 
     })
 
 })
+
+function buttonOn(client, button) {
+    let address = "/button";
+    let args = [$(button).data('code'), 1];
+    client.send(address, args);
+
+    $(button).css("z-index", 3000);
+}
+
+function buttonOff(client, button) {
+    let address = "/button";
+    let args = [$(button).data('code'), 0];
+    client.send(address, args);
+
+    $(button).css("z-index", 0);
+}
