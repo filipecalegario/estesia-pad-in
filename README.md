@@ -1,18 +1,22 @@
-Estesia PAD In
+Estesia Pad In
 --------------
 
-This folder contains a full **rhizome** application.
+Projeto baseado no [rhizome](https://github.com/sebpiq/rhizome) e usado no espetáculo estesia+batebit.
 
-It shows simple message sending / receiving with different clients for **rhizome** :
+Os celulares da plateia se conectam ao computador que está rodando o servidor do rhizome e, ao apertar os botões da interface gráfica, o celular do usuário envia mensagens de controle para o computador. O patch do Max recebe as mensagens de controle e converte para MIDI, que pode controlar disparos de notas em programas de áudio (Ableton Live, GarageBand, Logic etc.).
+A plateia funciona como uma grande entrada de dados para o estesia+batebit. O público toca diretamente o som do palco.
 
-- a static webpage (communication over websockets)
-- SuperCollider (communication over OSC)
-- Pure Data (communication over OSC)
+Instruções
+--------------
 
-To start the server, open your terminal, go to the example folder and run `rhizome config.js`. This should start the server and print an extract of the configuration.
+- abrir o Terminal e `cd` para este diretório
+- começar o servidor rhizome com: `sudo rhizome config.js`
+- adicionar a senha de administrador
+- abrir em um browser: `http://localhost` (se o browser for rodado do mesmo computador que está o rhizome) ou `http://192.168.X.XXX` (se estiver em outro computador da rede: substitua os `X` pelo IP do computador que estiver rodando o rhizome)
+- rodar o max com o `osc-trace.maxpat` que faz a conversão de OSC do rhizome para MIDI.
 
-Then, open either of the clients and try sending messages. Other clients that have subscribed to the right address should receive these messages.
-
-To open the web page (websocket client), just go to [http://localhost:8000/index.html](http://localhost:8000/index.html).
-
-All the code for the web page is in [pages/index.html](https://github.com/sebpiq/rhizome/blob/master/examples/base/pages/index.html) once you got the example working, you can just modify the html/javascript there to fit your needs.
+para evitar que o usuário tenha de colocar o número da porta, estamos usando a porta 80 que é a padrão para requisições http.
+dessa forma, o usuário precisa apenas digitar `http://localhost` no browser.
+se você deseja alterar a configuração de porta, modifique o arquivo `config.js` na pasta do projeto.
+lembre-se de modificar tanto para `http` quanto para `websocket`.
+para portas que tenham número menor 1024, é preciso ser administrador, por isso deve-se usar o comando `sudo rhizome config.js` para rodar o servidor.
