@@ -3,6 +3,14 @@ $(document).ready(function () {
         // This hides the address bar:
         window.scrollTo(0, 1);
     }, 0);
+
+    var noSleep = new NoSleep();
+
+    function enableNoSleep() {
+        noSleep.enable();
+        document.removeEventListener('touchstart', enableNoSleep, false);
+    }
+
     var client;
     $(function () {
         let isMobile = false; //initiate as false
@@ -22,7 +30,8 @@ $(document).ready(function () {
                 $('body').html('client failed starting : ' + err)
                 throw err
             }
-            client.send('/sys/subscribe', ['/'])
+            client.send('/sys/subscribe', ['/']);
+            document.addEventListener('touchstart', enableNoSleep, false);
         })
 
         client.on('message', function (address, args) {
@@ -31,7 +40,7 @@ $(document).ready(function () {
                 if (args[1] == 1) {
                     $(`#b${args[0]}`).css("transform", "scale(1.05)");
                     $(`#b${args[0]}`).css("z-index", 3000);
-                } else if(args[1] == 0){
+                } else if (args[1] == 0) {
                     $(`#b${args[0]}`).css("transform", "scale(1)");
                     $(`#b${args[0]}`).css("z-index", 0);
                 }
@@ -59,8 +68,8 @@ $(document).ready(function () {
             $('.box').on('mouseup', function () {
                 buttonOff(client, this);
             });
-        } 
-        
+        }
+
         $('.box').on('touchstart', function () {
             buttonOn(client, this);
         });
