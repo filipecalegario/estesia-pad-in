@@ -12,7 +12,7 @@ Instruções
 - abrir o Terminal e `cd` para este diretório
 - começar o servidor rhizome com: `sudo rhizome config.js`
 - adiciona-se a senha de administrador
-- abrir em um browser: `http://localhost`
+- abrir em um browser: `http://localhost` (se o browser for rodado do mesmo computador que está o servidor) ou `http://192.168.X.XXX` (se estiver em outro computador da rede: substitua os `X` pelo IP do computador que estiver rodando o rhizome)
 - rodar o max com o `osc-trace.maxpat` que faz a conversão de OSC do rhizome para MIDI.
 
 para evitar que o usuário tenha de colocar o número da porta, estamos usando a porta 80 que é a padrão para requisições http.
