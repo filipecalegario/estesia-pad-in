@@ -30,7 +30,7 @@ $(document).ready(function () {
                 $('body').html('client failed starting : ' + err)
                 throw err
             }
-            client.send('/sys/subscribe', ['/']);
+            client.send('/sys/subscribe', ['/button']);
             document.addEventListener('touchstart', enableNoSleep, false);
         })
 
